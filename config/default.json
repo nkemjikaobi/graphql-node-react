@@ -1,0 +1,3 @@
+{
+    "mongoURI": "mongodb+srv://root:root@graphql-node-react.zi9as.mongodb.net/author_books?retryWrites=true&w=majority"
+}
