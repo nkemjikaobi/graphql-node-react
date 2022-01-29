@@ -10,35 +10,89 @@ const {
 const _ = require('lodash');
 
 //Hardcoded data
-// const customers = [
-// 	{
-// 		id: '1',
-// 		name: 'John Doe',
-// 		email: 'nkem@gmail.com',
-// 		age: 35,
-// 	},
-// 	{
-// 		id: '2',
-// 		name: 'Jane Doe',
-// 		email: 'nkemobiii@gmail.com',
-// 		age: 45,
-// 	},
-// 	{
-// 		id: '3',
-// 		name: 'Johnnnn Mceronroe',
-// 		email: 'nkem@ymail.com',
-// 		age: 5,
-// 	},
-// ];
+const books = [
+	{
+		id: '1',
+		name: 'The harder they fall',
+		genre: 'Fantasy',
+		authorId: '1',
+	},
+	{
+		id: '2',
+		name: 'Deadpool',
+		genre: 'Sci-Fi',
+		authorId: '2',
+	},
+	{
+		id: '3',
+		name: 'Upgrade',
+		genre: 'Action',
+		authorId: '3',
+	},
+];
+
+const authors = [
+	{
+		id: '1',
+		name: 'John Doe',
+		age: 35,
+	},
+	{
+		id: '2',
+		name: 'Jane Doe',
+		age: 45,
+	},
+	{
+		id: '3',
+		name: 'Johnnnn Mceronroe',
+		age: 5,
+	},
+	{
+		id: '4',
+		name: 'Kolawole Ogunfowakan',
+		age: 35,
+	},
+	{
+		id: '5',
+		name: 'Erin Deji',
+		age: 45,
+	},
+	{
+		id: '6',
+		name: 'Dave Omoreige',
+		age: 5,
+	},
+];
 
 //Book Type
-const CustomerType = new GraphQLObjectType({
-	name: 'Customer',
+const BookType = new GraphQLObjectType({
+	name: 'Book',
 	fields: () => ({
-		id: { type: GraphQLString },
+		id: { type: GraphQLID },
 		name: { type: GraphQLString },
-		email: { type: GraphQLString },
+		genre: { type: GraphQLString },
+		author: {
+			type: AuthorType,
+			resolve(parent, args) {
+				return _.find(authors,{id:parent.authorId})
+			}
+		}
+	}),
+});
+
+//Book Type
+const AuthorType = new GraphQLObjectType({
+	name: 'Author',
+	fields: () => ({
+		id: { type: GraphQLID },
+		name: { type: GraphQLString },
 		age: { type: GraphQLInt },
+		books: {
+			type: BookType,
+			resolve(parent, args) {
+				return _.find(books,{authorId:parent.id})
+			}
+		}
 	}),
 });
 
