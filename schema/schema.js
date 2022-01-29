@@ -8,61 +8,63 @@ const {
 	GraphQLID,
 } = require('graphql');
 const _ = require('lodash');
+const Book = require("../models/Book");
+const Author = require("../models/Author");
 
-//Hardcoded data
-const books = [
-	{
-		id: '1',
-		name: 'The harder they fall',
-		genre: 'Fantasy',
-		authorId: '1',
-	},
-	{
-		id: '2',
-		name: 'Deadpool',
-		genre: 'Sci-Fi',
-		authorId: '2',
-	},
-	{
-		id: '3',
-		name: 'Upgrade',
-		genre: 'Action',
-		authorId: '3',
-	},
-];
+// //Hardcoded data
+// const books = [
+// 	{
+// 		id: '1',
+// 		name: 'The harder they fall',
+// 		genre: 'Fantasy',
+// 		authorId: '1',
+// 	},
+// 	{
+// 		id: '2',
+// 		name: 'Deadpool',
+// 		genre: 'Sci-Fi',
+// 		authorId: '2',
+// 	},
+// 	{
+// 		id: '3',
+// 		name: 'Upgrade',
+// 		genre: 'Action',
+// 		authorId: '3',
+// 	},
+// ];
 
-const authors = [
-	{
-		id: '1',
-		name: 'John Doe',
-		age: 35,
-	},
-	{
-		id: '2',
-		name: 'Jane Doe',
-		age: 45,
-	},
-	{
-		id: '3',
-		name: 'Johnnnn Mceronroe',
-		age: 5,
-	},
-	{
-		id: '4',
-		name: 'Kolawole Ogunfowakan',
-		age: 35,
-	},
-	{
-		id: '5',
-		name: 'Erin Deji',
-		age: 45,
-	},
-	{
-		id: '6',
-		name: 'Dave Omoreige',
-		age: 5,
-	},
-];
+// const authors = [
+// 	{
+// 		id: '1',
+// 		name: 'John Doe',
+// 		age: 35,
+// 	},
+// 	{
+// 		id: '2',
+// 		name: 'Jane Doe',
+// 		age: 45,
+// 	},
+// 	{
+// 		id: '3',
+// 		name: 'Johnnnn Mceronroe',
+// 		age: 5,
+// 	},
+// 	{
+// 		id: '4',
+// 		name: 'Kolawole Ogunfowakan',
+// 		age: 35,
+// 	},
+// 	{
+// 		id: '5',
+// 		name: 'Erin Deji',
+// 		age: 45,
+// 	},
+// 	{
+// 		id: '6',
+// 		name: 'Dave Omoreige',
+// 		age: 5,
+// 	},
+// ];
 
 //Book Type
 const BookType = new GraphQLObjectType({
@@ -74,7 +76,7 @@ const BookType = new GraphQLObjectType({
 		author: {
 			type: AuthorType,
 			resolve(parent, args) {
-				return _.find(authors,{id:parent.authorId})
+				//return _.find(authors,{id:parent.authorId})
 			}
 		}
 	}),
@@ -90,7 +92,7 @@ const AuthorType = new GraphQLObjectType({
 		books: {
 			type: BookType,
 			resolve(parent, args) {
-				return _.find(books,{authorId:parent.id})
+				//return _.find(books,{authorId:parent.id})
 			}
 		}
 	}),
@@ -112,7 +114,7 @@ const RootQuery = new GraphQLObjectType({
 		books: {
 			type: new GraphQLList(BookType),
 			resolve(parent, args) {
-				return books;
+				//return books;
 			},
 		},
 		author: {
@@ -121,13 +123,13 @@ const RootQuery = new GraphQLObjectType({
 				id: { type: GraphQLID },
 			},
 			resolve(parent, args) {
-				return _.find(authors, { id: args.id });
+				//return _.find(authors, { id: args.id });
 			},
 		},
 		authors: {
 			type: new GraphQLList(AuthorType),
 			resolve(parent, args) {
-				return authors;
+				//return authors;
 			},
 		},
 	},
